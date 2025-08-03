@@ -22,8 +22,16 @@ export async function POST(req: Request) {
           try {
             const { n1, n2, operation } = input;
             const result = performCalculation(n1, n2, operation);
-            console.log({ result: `N1 + N2 = ${result}` })
-            return { result: `N1 + N2 = ${result}` }
+            const opSymbols: Record<string, string> = {
+              SUM: '+',
+              MINUS: '-',
+              MULTIPLY: '×',
+              DIVIDE: '÷'
+            };
+            const symbol = opSymbols[operation] || operation;
+            const response = { result: `${n1} ${symbol} ${n2} = ${result}` };
+            console.log(response);
+            return response;
           } catch (error) {
             console.error(error)
           }
